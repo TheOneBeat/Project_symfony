@@ -1,3 +1,9 @@
+
+{% for type, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ type }}">{{ message }}</div>
+    {% endfor %}
+{% endfor %}
 <nav>
     <h2>
         {% set name = "inconnu" %}
@@ -13,11 +19,20 @@
         Bienvenue cher {{ name }}
     </h2>
     <ul>
-        {% if app.user %}<li><a href="{{ path('app_logout') }}">Logout</a></li>{% endif %}
+        {% if app.user %}
+            <li><a href="{{ path('app_logout') }}">Logout</a></li>
+            <li><a href="{{ path('form_editProfil') }}">EditProfil</a></li>
+        {% endif %}
 
         {% if not app.user %}
             <li><a href="{{ path('app_login') }}">login </a></li>
         {% endif %}
+
+        {% if not app.user %}
+            <li><a href="{{ path('form_createUser') }}">Sign in</a></li>
+        {% endif %}
+
+
 
         <li><a>Magasin</a></li>
         <li><a>Panier</a></li>
