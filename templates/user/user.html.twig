@@ -1,7 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Create new user</h1>
+    {% set name = "Client" %}
+    {% if is_granted("ROLE_SUPER_ADMIN") %}
+        {% set name = "Admin" %}
+    {% endif %}
+    <h1>Create new {{ name }}</h1>
 
     {{ form_start(form) }}
     {{ form_row(form.login) }}

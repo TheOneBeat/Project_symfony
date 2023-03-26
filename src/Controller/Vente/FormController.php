@@ -44,6 +44,36 @@ class FormController extends AbstractController
         ]);
     }
 
+    #[Route('/createAdmin', name: '_createAdmin')]
+    public function createAdmin (EntityManagerInterface $em,Request $request,
+                                UserPasswordHasherInterface $passwordHasher): Response
+    {
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $passwordUser1 = $passwordHasher->hashPassword($user,
+                $form->get('password')->getData());
+
+            $user->setPassword($passwordUser1);
+            $user->setRoles(["ROLE_ADMIN"]);
+
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash('success', 'compte admin créé avec succès !');
+
+            return $this->redirectToRoute('accueil');
+        }
+
+        return $this->render('user/user.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+
 
     #[Route('/editProfil', name: '_editProfil')]
     public function editProfil(EntityManagerInterface $em,Request $request,
