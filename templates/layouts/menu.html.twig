@@ -1,0 +1,26 @@
+<nav>
+    <h2>
+        {% set name = "inconnu" %}
+        {% if app.user %}
+            {% if is_granted('ROLE_ADMIN') %}
+                {% set name = "admin " ~ app.user.userIdentifier %}
+            {%  elseif is_granted('ROLE_CLIENT') %}
+                {% set name = "client " ~ app.user.userIdentifier %}
+            {% elseif  is_granted('SUPER_ADMIN') %}
+                {% set name = "super_admin " ~ app.user.userIdentifier%}
+            {% endif %}
+        {% endif %}
+        Bienvenue cher {{ name }}
+    </h2>
+    <ul>
+        {% if app.user %}<li><a href="{{ path('app_logout') }}">Logout</a></li>{% endif %}
+
+        {% if not app.user %}
+            <li><a href="{{ path('app_login') }}">login </a></li>
+        {% endif %}
+
+        <li><a>Magasin</a></li>
+        <li><a>Panier</a></li>
+    </ul>
+</nav>
+
