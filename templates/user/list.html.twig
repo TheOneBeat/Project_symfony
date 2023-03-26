@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block header %} {{ parent() }}{% endblock %}
+
+{% block body %}
+    {% if users|length == 0 %}
+        <p>Aucun user dans la base de données</p>
+    {% else %}
+        <table>
+            <tr>
+                <th>Role</th>
+                <th>Name</th>
+                <th>First_name</th>
+                <th>Login</th>
+                <th>Password</th>
+                <th>BirthDay</th>
+                <th>Suppression</th>
+            </tr>
+            {% for user in users %}
+                {% set urlDelete = path('vente_suppUser', {'id' : user.id}) %}
+                <tr>
+                    <td>{{ user.roles[0] }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.login }}</td>
+                    <td>{{ user.firstname }}</td>
+                    <td>{{ user.password }}</td>
+                    <td>{{ user.Birthday|date('d/m/Y') }}</td>
+                    {% if user.roles[0] != "ROLE_ADMIN" %}
+                        <td><a href="{{ urlDelete }}">delete</a></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+    {% for type, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ type }}">{{ message }}</div>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}
