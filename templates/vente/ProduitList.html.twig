@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if produits|length == 0 %}
+        <p>Aucun produit dans la base de données</p>
+    {% else %}
+        <table>
+            <tr>
+                <th>libelle</th>
+                <th>prix</th>
+                <th>enstock</th>
+            </tr>
+            {% for produit in produits %}
+                <tr>
+                    <td>{{ produit.libelle }}</td>
+                    <td>{{ produit.prix }}</td>
+                    <td>{{ produit.enstock }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+    {% for type, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ type }}">{{ message }}</div>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}
