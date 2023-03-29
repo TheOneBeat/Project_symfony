@@ -1,23 +1,41 @@
 {% extends 'base.html.twig' %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/app.js') }}"></script>
+{% endblock %}
 {% block body %}
     {% if produits|length == 0 %}
         <p>Aucun produit dans la base de données</p>
     {% else %}
-        <table>
-            <tr>
-                <th>libelle</th>
-                <th>prix</th>
-                <th>enstock</th>
-            </tr>
-            {% for produit in produits %}
-                <tr>
-                    <td>{{ produit.libelle }}</td>
-                    <td>{{ produit.prix }}</td>
-                    <td>{{ produit.enstock }}</td>
-                </tr>
-            {% endfor %}
-        </table>
+
+        {% for produit in produits %}
+            <form action="{{ path('produit_addProduitPanier',{'id':produit.id}) }}">
+                <p>{{ produit.libelle }}</p>
+                <p>{{ produit.prix }}</p>
+                <p>{{ produit.enstock }}</p>
+                        <p>
+                            {% if panier==null or (produit.id not in (panier.getTableProduitQuantites()|keys)) %}
+                                {% set quantitepanier = 0 %}
+                            {% else %}
+                                {% set quantitepanier = panier.getQuantity(produit.id) %}
+                            {% endif %}
+                            <label>
+                                <select name="quantity">
+                                    {% if quantitepanier!=0 %}
+                                        <option value="quantitepanier">0</option>
+                                    {% endif %}
+                                    {% for j in range(-quantitepanier,produit.enstock) %}
+                                        <option value="{{ j }}">{{ j }}</option>
+                                    {% endfor %}
+                                </select>
+                            </label>
+                        </p>
+
+                <button type="submit">Commander</button>
+            </form>
+        {% endfor %}
+
     {% endif %}
     {% for type, messages in app.flashes %}
         {% for message in messages %}

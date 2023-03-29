@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+        <table>
+            <tr>
+                <th>libelle</th>
+                <th>prix</th>
+            </tr>
+            {% for produit in panier.getProduits() %}
+                {% if panier.getQuantity(produit.id) !=0 %}
+                    <tr>
+                        <td>{{ produit.libelle }}</td>
+                        <td>{{ produit.prix }}</td>
+                        <td>{{ panier.getQuantity(produit.id) }}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    {% for type, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ type }}">{{ message }}</div>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}

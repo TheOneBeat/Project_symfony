@@ -35,6 +35,10 @@ class Produit
     #[ORM\Column(type: Types::INTEGER,nullable: false)]
     private ?int $enstock = null;
 
+    #[ORM\ManyToOne(inversedBy: 'produits')]
+    #[ORM\JoinColumn(name:'id_panier',nullable: true)]
+    private ?Panier $panier = null;
+
     public function __construct()
     {
 
@@ -77,6 +81,18 @@ class Produit
     public function setEnstock(int $enstock): self
     {
         $this->enstock = $enstock;
+
+        return $this;
+    }
+
+    public function getPanier(): ?Panier
+    {
+        return $this->panier;
+    }
+
+    public function setPanier(?Panier $panier): self
+    {
+        $this->panier = $panier;
 
         return $this;
     }

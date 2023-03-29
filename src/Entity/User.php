@@ -50,6 +50,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $Birth_day = null;
 
+    #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(name:'id_panier',nullable: true)]
+    private ?Panier $panier = null;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -157,6 +162,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setBirthDay(?\DateTimeInterface $Birth_day): self
     {
         $this->Birth_day = $Birth_day;
+
+        return $this;
+    }
+
+    public function getPanier(): ?Panier
+    {
+        return $this->panier;
+    }
+
+    public function setPanier(?Panier $panier): self
+    {
+        $this->panier = $panier;
 
         return $this;
     }

@@ -26,7 +26,7 @@
                 {% if is_granted("ROLE_CLIENT") %}
                     <li><a href="{{ path('produit_listProduit') }}">Magasin</a></li>
                     <li><a href="{{ path('accueil') }}">Accueil</a></li>
-                    <li><a  href="#">Panier</a></li>
+                    <li><a  href="{{ path('produit_listPanier') }}">Panier</a></li>
                 {% endif %}
 
                 {% if is_granted("ROLE_ADMIN") %}

@@ -17,7 +17,6 @@ class SecurityTestController extends AbstractController
     public function addUsers(EntityManagerInterface $em,
                              UserPasswordHasherInterface $passwordHasher):Response
     {
-
         //===================ROLE CLIENT SIMON =========================
 
         $user1 = new User();
@@ -86,8 +85,6 @@ class SecurityTestController extends AbstractController
 
         return $this->render("<body><h1>Very Good</h1></body>");
     }
-
-
 
     #[Route('/suppUser/{id}',
         name: '_suppUser',
