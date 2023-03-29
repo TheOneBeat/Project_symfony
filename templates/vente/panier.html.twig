@@ -2,19 +2,45 @@
 
 {% block body %}
         <table>
+            {% set total = 0 %}
+            {% set totalQuantite = 0 %}
             <tr>
                 <th>libelle</th>
                 <th>prix</th>
+                <th>Quantite</th>
+                <th>Action</th>
+                <th>Prix Total</th>
             </tr>
             {% for produit in panier.getProduits() %}
-                {% if panier.getQuantity(produit.id) !=0 %}
+                {% if produit.id in (panier.getTableProduitQuantites()|keys) %}
                     <tr>
                         <td>{{ produit.libelle }}</td>
-                        <td>{{ produit.prix }}</td>
+                        <td>{{ produit.prix }} €</td>
                         <td>{{ panier.getQuantity(produit.id) }}</td>
+                        <td>{{ panier.getQuantity(produit.id) * produit.prix  }} €</td>
+                        <td><a href="#">Modifier</a></td>
                     </tr>
+                    {% set total = total + (produit.prix*panier.getQuantity(produit.id))  %}
+                    {% set totalQuantite = totalQuantite + panier.getQuantity(produit.id)  %}
                 {% endif %}
             {% endfor %}
+            <tr>
+                <td>Total</td>
+                <td></td>
+                <td>{{ totalQuantite }}</td>
+                <td>{{ total }} €</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <a href="#">Acheter</a>
+                </td>
+                <td>
+                    <a href="{{ path('produit_viderPanier') }}">Vider</a>
+                </td>
+            </tr>
         </table>
     {% for type, messages in app.flashes %}
         {% for message in messages %}
