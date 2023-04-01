@@ -37,7 +37,6 @@ class Panier
         return $this->id;
     }
 
-
     /**
      * @return Collection<int, Produit>
      */

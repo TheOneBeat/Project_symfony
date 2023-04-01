@@ -100,24 +100,24 @@ class ProduitController extends AbstractController
    #[Route('/viderPanier', name: '_viderPanier')]
     public function ViderPanierAction(EntityManagerInterface $em): Response
     {
-        $user=  $this->getUser();
-        $panier = $em->getRepository(Panier::class)->findOneBy(['user' => $user]);
+        $user=  $this->getUser();//accès à l'utlisateur
+        $panier = $em->getRepository(Panier::class)->findOneBy(['user' => $user]);//accès au panier de l'utlisateur
         if (!$panier) {
             return $this->redirectToRoute('produit_listPanier');
         }
         else
         {
-            $produitRepository = $em->getRepository(Produit::class);
-            $Produits = $produitRepository->findAll();
+            //$produitRepository = $em->getRepository(Produit::class);
+            $Produits = $panier->getProduits()->toArray(null, true);
             foreach ($Produits as $Produit)
             {
                 if (array_key_exists($Produit->getId(),$panier->getTableProduitQuantites()))
                     $Produit->setEnstock($Produit->getEnstock()+$panier->getQuantity($Produit->getId()));
             }
-            $em->flush();
+            //$em->flush();
         }
-        $Produits = $panier->getProduits()->toArray(null, true);
-        foreach($Produits as $produit)
+        $produits = $panier->getProduits()->toArray(null, true);//tranforme la collection en array...
+        foreach($produits as $produit)
         {
             $panier->removeProduit($produit);
         }

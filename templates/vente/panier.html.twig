@@ -18,7 +18,7 @@
                         <td>{{ produit.prix }} €</td>
                         <td>{{ panier.getQuantity(produit.id) }}</td>
                         <td>{{ panier.getQuantity(produit.id) * produit.prix  }} €</td>
-                        <td><a href="#">Modifier</a></td>
+                        <td><a href="{{ path('produit_listProduit') }}">Modifier</a></td>
                     </tr>
                     {% set total = total + (produit.prix*panier.getQuantity(produit.id))  %}
                     {% set totalQuantite = totalQuantite + panier.getQuantity(produit.id)  %}
