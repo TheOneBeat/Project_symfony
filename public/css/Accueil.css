@@ -1,0 +1,117 @@
+body{
+    overflow: hidden;
+}
+
+.container
+{
+    width:100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    overflow: hidden;
+}
+
+.presentation{
+    padding: 20px;
+    width:800px;
+    height:500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    transform: translateY(-100px);
+}
+
+.presentation h2
+{
+    font-size: 40px;
+    font-family: Rockwell;
+}
+
+.presentation p
+{
+    line-height: 2;
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    width:80%;
+    font-family: "Bookman Old Style", serif;
+}
+
+.container h2::before,
+.container h2::after
+{
+    content: close-quote;
+}
+
+
+.left_bord{
+    position: relative;
+}
+
+.left_bord img{
+    position: relative;
+    width:400px;
+    height:400px;
+    shape-outside: circle();
+    z-index: 6;
+    transform: translateY(-100px);
+
+}
+
+.arrow{
+    position: absolute;
+    width:550px;
+    height: 800px;
+    border-radius: 9999px;
+    background-color: #FFFFFF;
+    z-index: 4;
+    transform: translateX(20px) translateY(-450px);
+}
+
+.btns{
+    width:100%;
+    height:100px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.btns button
+{
+    width:200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    font-size:18px ;
+    font-family:"Roboto Thin",sans-serif;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: crimson;
+    color:white;
+    padding:30px;
+    margin:0 15px;
+    transition: all 0.3s ease-in-out;
+}
+
+.btns button:nth-child(1):hover
+{
+    background-color: white;
+    color:crimson;
+}
+
+.btns button:nth-child(2)
+{
+    background-color: white;
+    color:crimson;
+}
+
+.btns button:nth-child(2):hover
+{
+    background-color: crimson;
+    color:white;
+}

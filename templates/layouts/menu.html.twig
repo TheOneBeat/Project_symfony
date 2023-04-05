@@ -1,9 +1,15 @@
 {% extends "base.html.twig" %}
 
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {{ parent() }}
+    <link rel="stylesheet" media="screen" type="text/css" href="{{ asset('css/menu.css') }}">
+{% endblock %}
+
 {% block header %}
     <nav>
         <h2>
-            {% set name = "inconnu" %}
+            {% set name = "unknown" %}
             {% if app.user %}
                 {% if is_granted('ROLE_ADMIN') %}
                     {% set name = "admin " ~ app.user.userIdentifier %}
@@ -13,41 +19,39 @@
                     {% set name = "super_admin " ~ app.user.userIdentifier%}
                 {% endif %}
             {% endif %}
-            Bienvenue cher {{ name }}
+            Welcome dear {{ name }}
         </h2>
         <ul>
             {% if app.user %}
                 <li><a href="{{ path('app_logout') }}">Logout</a></li>
 
                 {% if is_granted('ROLE_CLIENT') or is_granted('ROLE_ADMIN') %}
-                    <li><a href="{{ path('form_editProfil') }}">EditProfil</a></li>
+                    <li><a href="{{ path('form_editProfil') }}">Profil</a></li>
                 {% endif %}
 
                 {% if is_granted("ROLE_CLIENT") %}
-                    <li><a href="{{ path('produit_listProduit') }}">Magasin</a></li>
-                    <li><a href="{{ path('accueil') }}">Accueil</a></li>
-                    <li><a  href="{{ path('produit_listPanier') }}">Panier</a></li>
+                    <li><a href="{{ path('produit_listProduit') }}">Store</a></li>
+                    <li><a href="{{ path('accueil') }}">Welcome</a></li>
+                    <li><a  href="{{ path('produit_listPanier') }}">Basket</a></li>
                 {% endif %}
 
                 {% if is_granted("ROLE_ADMIN") %}
-                    <li><a href="{{ path('vente_listUser') }}">Users' list</a></li>
-                    <li><a href="{{ path('produit_add') }}">addNewProduct</a></li>
+                    <li><a href="{{ path('vente_listUser') }}">All Users</a></li>
+                    <li><a href="{{ path('produit_add') }}">Add Product</a></li>
                 {% endif %}
 
                 {% if is_granted("ROLE_SUPER_ADMIN") %}
-                    <li><a href="{{ path('form_createAdmin') }}">CreateNewAdmin</a></li>
-                    <li><a href="{{ path('accueil') }}">Accueil</a></li>
+                    <li><a href="{{ path('form_createAdmin') }}">Create Admin</a></li>
+                    <li><a href="{{ path('accueil') }}">Welcome</a></li>
                 {% endif %}
 
             {% endif %}
 
             {% if not app.user %}
-                <li><a href="{{ path('app_login') }}">login </a></li>
+                <li><a href="{{ path('app_login') }}">Login </a></li>
                 <li><a href="{{ path('form_createUser') }}">Sign in</a></li>
-                <li><a href="{{ path('accueil') }}">Accueil</a></li>
+                <li><a href="{{ path('accueil') }}">Welcome</a></li>
             {% endif %}
-
-
 
         </ul>
     </nav>

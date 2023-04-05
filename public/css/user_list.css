@@ -1,0 +1,89 @@
+body
+{
+    overflow-y: auto;
+}
+
+.container
+{
+    width:100vw;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+table{
+    width:70%;
+    height: auto;
+    border-collapse: collapse;
+    box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    margin:20px auto;
+    border:1px solid #f1f1f1;
+    border-radius: 10px;
+}
+
+th{
+    background-color: #FABC2B;
+    padding:20px;
+    font-size: 20px;
+    font-family: Rockwell,serif;
+}
+
+td{
+    padding:20px;
+}
+
+tr,td{
+    border:1px solid #f1f1f1;
+    border-radius: 10px;
+}
+
+/* Lien */
+
+.btn
+{
+    width:150px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    font-size:18px ;
+    font-family: "Georgia", serif;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: black;
+    color:white;
+    padding:10px;
+    margin:0 15px;
+    transition: all 0.3s ease-in-out;
+    letter-spacing: 2px;
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.btn::after{
+    content: "";
+    display: block;
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+    width:0;
+    height:200%;
+    z-index: -1;
+    background-color: #B0413E;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn:hover::after
+{
+    content: "";
+    width: 120%;
+}
+
+.btn:hover
+{
+    color: black;
+}

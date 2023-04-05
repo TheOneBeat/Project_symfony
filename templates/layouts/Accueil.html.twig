@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+
+{% block header %}
+    {% include '/layouts/menu.html.twig' %}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {{ parent() }}
+    <link rel="stylesheet" media="screen" type="text/css" href="{{ asset('css/Accueil.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <section class="container">
+
+        <div class="presentation">
+            <h2>FuturoMode: Your destination for avant-garde and connected fashion</h2>
+            <p>
+                Enter the new dimension of online fashion! Explore our selection of fashion-forward apparel, designed for style pioneers who seek the extraordinary.
+            </p>
+            <div class="btns">
+                <button>Explore now </button>
+                <button>Want to log </button>
+            </div>
+        </div>
+
+        <div class="left_bord">
+            <div class="arrow"></div>
+            <img src="{{ asset('media/shabiller.png') }}">
+        </div>
+    </section>
+{% endblock %}

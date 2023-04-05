@@ -33,7 +33,7 @@ class FormController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-            $this->addFlash('success', 'compte client créé avec succès !');
+            $this->addFlash('success', "customer account created successfully !");
 
             return $this->redirectToRoute('accueil');
         }
@@ -63,7 +63,7 @@ class FormController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-            $this->addFlash('success', 'compte admin créé avec succès !');
+            $this->addFlash('success',  "customer account created successfully !");
 
             return $this->redirectToRoute('accueil');
         }
@@ -93,7 +93,7 @@ class FormController extends AbstractController
             $em->flush();
 
 
-            $this->addFlash('success', 'Profil mis à jour avec succès !');
+            $this->addFlash('success', "Profile updated successfully !");
 
             return $this->redirectToRoute('accueil');
         }

@@ -21,7 +21,7 @@ class PanierType extends AbstractType
                 TextType::class,
                 [
                     'label'=>'nom du produit',
-                    'attr'=>['placeholder'=> 'libelle'],
+                    'attr'=>['placeholder'=> 'wording'],
                     'constraints' => [
                         new NotBlank(),
                     ],
@@ -30,8 +30,8 @@ class PanierType extends AbstractType
             ->add('prix',
                 NumberType::class,
                 [
-                    'label'=>"le prix de l'article",
-                    'attr'=>['placeholder'=>"prix"],
+                    'label'=>"the price of the item",
+                    'attr'=>['placeholder'=>"price"],
                     'constraints' => [
                         new NotBlank(),
                     ],
@@ -40,7 +40,7 @@ class PanierType extends AbstractType
             ->add('enstock',
                 IntegerType::class,
                 [
-                    'label'=>"nombre de stock",
+                    'label'=>"stock number",
                     'attr'=>['placeholder'=>"stock"],
                     'constraints' => [
                         new NotBlank(),
@@ -48,7 +48,7 @@ class PanierType extends AbstractType
                 ])
 
             ->add('quantity', ChoiceType::class, [
-                'label' => 'Choix :',
+                'label' => 'Choice :',
                 'choices' => array_combine(range(0, $options['product']->getEnstock()), range(0, $options['product']->getEnstock())),
             ]);
     }

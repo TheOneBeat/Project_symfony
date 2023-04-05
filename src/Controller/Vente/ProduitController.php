@@ -25,7 +25,7 @@ class ProduitController extends AbstractController
             $em->persist($Produit);
             $em->flush();
 
-            $this->addFlash('success', 'produit ajouté avec succès !');
+            $this->addFlash('success', "product added successfully");
 
             return $this->redirectToRoute('produit_listProduit');
         }
@@ -87,7 +87,7 @@ class ProduitController extends AbstractController
         // Si le produit n'existe pas, rediriger l'utilisateur vers la page d'erreur
         if (!$produit)
         {
-            throw $this->createNotFoundException('Le produit n\'existe pas.');
+            throw $this->createNotFoundException("the product doesn't exist\n");
         }
 
         $produit->setEnstock($oldValue);
@@ -122,6 +122,27 @@ class ProduitController extends AbstractController
             $panier->removeProduit($produit);
         }
         $em->flush();
+        return $this->redirectToRoute('produit_listPanier');
+    }
+
+    #[Route('/acheterPanier', name: '_acheterPanier')]
+    public function AcheterPanierAction(EntityManagerInterface $em): Response
+    {
+        $user=  $this->getUser();//accès à l'utlisateur
+        $panier = $em->getRepository(Panier::class)->findOneBy(['user' => $user]);//accès au panier de l'utlisateur
+        if (!$panier) {
+            return $this->redirectToRoute('produit_listPanier');
+        }
+        else
+        {
+            $produits = $panier->getProduits()->toArray(null, true);//tranforme la collection en array...
+            foreach($produits as $produit)
+            {
+                $panier->removeProduit($produit);
+            }
+            $em->flush();
+        }
+
         return $this->redirectToRoute('produit_listPanier');
     }
 

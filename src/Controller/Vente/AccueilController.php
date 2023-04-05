@@ -12,6 +12,6 @@ class AccueilController extends AbstractController
     #[Route('/', name: 'accueil')]
     public function welcome(): Response
     {
-        return $this->render("/layouts/menu.html.twig");
+        return $this->render("/layouts/Accueil.html.twig");
     }
 }

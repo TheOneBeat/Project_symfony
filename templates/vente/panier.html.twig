@@ -1,15 +1,20 @@
 {% extends 'base.html.twig' %}
 
+{% block header %}
+    {{ parent()}}
+    {% include '/layouts/menu.html.twig' %}
+{% endblock %}
+
 {% block body %}
         <table>
             {% set total = 0 %}
             {% set totalQuantite = 0 %}
             <tr>
-                <th>libelle</th>
-                <th>prix</th>
-                <th>Quantite</th>
+                <th>Wording</th>
+                <th>Price</th>
+                <th>Quantity</th>
                 <th>Action</th>
-                <th>Prix Total</th>
+                <th>Total Price</th>
             </tr>
             {% for produit in panier.getProduits() %}
                 {% if produit.id in (panier.getTableProduitQuantites()|keys) %}
@@ -35,10 +40,10 @@
                 <td></td>
                 <td></td>
                 <td>
-                    <a href="#">Acheter</a>
+                    <a href="{{ path('produit_acheterPanier') }}">Buy</a>
                 </td>
                 <td>
-                    <a href="{{ path('produit_viderPanier') }}">Vider</a>
+                    <a href="{{ path('produit_viderPanier') }}">Clean</a>
                 </td>
             </tr>
         </table>

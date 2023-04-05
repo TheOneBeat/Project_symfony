@@ -1,0 +1,208 @@
+body
+{
+    overflow-y: auto;
+}
+
+.container
+{
+    padding: 5px;
+    margin: 10px 0 0 0;
+    width:100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-y: auto;
+}
+
+
+
+form,.contenu
+{
+    width:100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+form p,.contenu p
+{
+    width:170px;
+    height: 100%;
+    font-family: "Rockwell",sans-serif;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contenu p
+{
+   font-size: 30px;
+    padding: 5px;
+    margin-right: 5px;
+    color: #f11f44;
+    font-weight: bold;
+    text-shadow: 2px 2px 1px rgba(0,0,0,0.2);
+    letter-spacing: 2px;
+}
+
+.contenu p:hover
+{
+    text-shadow: 2px 2px 1px rgba(255,0,0,0.2);
+}
+
+/* Style de la liste déroulante */
+select
+{
+    display: inline-block;
+    text-align: center;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    margin: 10px;
+    transition: all 0.3s ease-in-out;
+    width: 60px;
+    height: 50px;
+}
+
+select option
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Style de la liste déroulante lorsqu'elle est active */
+
+select:hover
+{
+    font-size: 18px;
+    border-color: crimson;
+}
+
+
+select:focus {
+    outline: none;
+    border-color: #0077cc;
+}
+
+
+
+
+
+
+
+/*liste deroulante */
+
+
+/* Style de la liste déroulante */
+select {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    margin: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Ajout d'une flèche pour indiquer que c'est une liste déroulante */
+.user_Birth_day::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    border-top: 5px solid #333;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    pointer-events: none;
+
+}
+
+/* Style de la liste déroulante lorsqu'elle est active */
+
+select:hover
+{
+    font-size: 18px;
+    border-color: crimson;
+}
+
+
+select:focus {
+    outline: none;
+    border-color: #0077cc;
+}
+
+/*Button Command */
+
+
+button
+{
+    width:150px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    font-size:18px ;
+    font-family: "Georgia", serif;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: black;
+    color:white;
+    padding:10px;
+    margin:0 15px;
+    transition: all 0.3s ease-in-out;
+    letter-spacing: 2px;
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+}
+
+button::after{
+    content: "";
+    display: block;
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+    width:0;
+    height:200%;
+    z-index: -1;
+    background-color: #B0413E;
+    transition: all 0.3s ease-in-out;
+}
+
+button:hover::after
+{
+    content: "";
+    width: 120%;
+}
+
+button:hover
+{
+    color: black;
+}

@@ -20,8 +20,7 @@ class UserType extends AbstractType
             ->add('name',
             TextType::class,
             [
-                'label'=>'your Name',
-                'attr'=>['placeholder'=>'name'],
+                'label'=>'Name',
                 'constraints' => [
                     new NotBlank(),
                     new Length(['min' => 4, 'max' => 255]),
@@ -30,8 +29,7 @@ class UserType extends AbstractType
             ->add('first_name',
             TextType::class,
             [
-                'label'=>'your FirstName',
-                'attr'=>['placeholder'=>'firstName'],
+                'label'=>'FirstName',
                 'constraints' => [
                     new NotBlank(),
                     new Length(['min' => 4, 'max' => 255]),
@@ -41,8 +39,7 @@ class UserType extends AbstractType
             ->add('login',
                 TextType::class,
                 [
-                    'label'=>'your Login',
-                    'attr'=>['placeholder'=>'login'],
+                    'label'=>'Login',
                     'constraints' => [
                         new NotBlank(),
                     ],
@@ -59,8 +56,7 @@ class UserType extends AbstractType
             ->add('password',
                 PasswordType::class,
                 [
-                    'label'=>'your Password',
-                    'attr'=>['placeholder'=>'password'],
+                    'label'=>'Password',
                     'constraints' => [
                         new NotBlank(),
                     ],

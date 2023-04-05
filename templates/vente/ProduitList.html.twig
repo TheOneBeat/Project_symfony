@@ -1,42 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block javascripts %}
-    {{ parent() }}
-    <script src="{{ asset('js/app.js') }}"></script>
+{% block header %}
+    {{ parent()}}
+    {% include '/layouts/menu.html.twig' %}
 {% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {{ parent() }}
+    <link rel="stylesheet" media="screen" type="text/css" href="{{ asset('css/product_list.css') }}">
+{% endblock %}
+
 {% block body %}
+    <div class="container">
     {% if produits|length == 0 %}
-        <p>Aucun produit dans la base de données</p>
+        <p>No product in the database</p>
     {% else %}
+
+        <div class="contenu">
+            <p>Wording</p>
+            <p>Price</p>
+            <p>Stock</p>
+            <p>Quantity</p>
+            <p>Action</p>
+        </div>
 
         {% for produit in produits %}
             <form action="{{ path('produit_addProduitPanier',{'id':produit.id}) }}">
-                <p>{{ produit.libelle }}</p>
-                <p>{{ produit.prix }}</p>
-                <p>{{ produit.enstock }}</p>
-                        <p>
-                            {% if panier==null or (produit.id not in (panier.getTableProduitQuantites()|keys)) %}
-                                {% set quantitepanier = 0 %}
-                            {% else %}
-                                {% set quantitepanier = panier.getQuantity(produit.id) %}
-                            {% endif %}
-                            <label>
-                                <select name="quantity">
-                                    {% if quantitepanier!=0 %}
-                                        <option value="quantitepanier">0</option>
-                                    {% endif %}
-                                    {% for j in range(-quantitepanier,produit.enstock) %}
-                                        <option value="{{ j }}">{{ j }}</option>
-                                    {% endfor %}
-                                </select>
-                            </label>
-                        </p>
-
-                <button type="submit">Commander</button>
+                    <p>{{ produit.libelle }}</p>
+                    <p>{{ produit.prix }} €</p>
+                    <p>{{ produit.enstock }}</p>
+                            <p>
+                                {% if panier==null or (produit.id not in (panier.getTableProduitQuantites()|keys)) %}
+                                    {% set quantitepanier = 0 %}
+                                {% else %}
+                                    {% set quantitepanier = panier.getQuantity(produit.id) %}
+                                {% endif %}
+                                <label>
+                                    <select name="quantity">
+                                        {% if quantitepanier!=0 %}
+                                            <option value="quantitepanier">0</option>
+                                        {% endif %}
+                                        {% for j in range(-quantitepanier,produit.enstock) %}
+                                            <option value="{{ j }}">{{ j }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </label>
+                            </p>
+                    <button type="submit">Command</button>
             </form>
         {% endfor %}
 
     {% endif %}
+    </div>
     {% for type, messages in app.flashes %}
         {% for message in messages %}
             <div class="alert alert-{{ type }}">{{ message }}</div>

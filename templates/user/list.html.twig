@@ -1,40 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block header %} {{ parent() }}{% endblock %}
+{% block header %}
+    {{ parent()}}
+    {% include '/layouts/menu.html.twig' %}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    <link rel="stylesheet" media="screen" type="text/css" href="{{ asset('css/user_list.css') }}">
+{% endblock %}
+
 
 {% block body %}
-    {% if users|length == 0 %}
-        <p>Aucun user dans la base de données</p>
-    {% else %}
-        <table>
-            <tr>
-                <th>Role</th>
-                <th>Name</th>
-                <th>First_name</th>
-                <th>Login</th>
-                <th>Password</th>
-                <th>BirthDay</th>
-                <th>Suppression</th>
-            </tr>
-            {% for user in users %}
-                {% set urlDelete = path('vente_suppUser', {'id' : user.id}) %}
+    <div class="container">
+        {% if users|length == 0 %}
+            <p>No user in the database</p>
+        {% else %}
+            <table>
                 <tr>
-                    <td>{{ user.roles[0] }}</td>
-                    <td>{{ user.name }}</td>
-                    <td>{{ user.firstname }}</td>
-                    <td>{{ user.login }}</td>
-                    <td>{{ user.password }}</td>
-                    <td>{{ user.Birthday|date('d/m/Y') }}</td>
-                    {% if user.roles[0] != "ROLE_ADMIN" %}
-                        <td><a href="{{ urlDelete }}">delete</a></td>
-                    {% endif %}
+                    <th>Role</th>
+                    <th>Name</th>
+                    <th>First_name</th>
+                    <th>Login</th>
+                    <th>Password</th>
+                    <th>BirthDay</th>
+                    <th>Suppression</th>
                 </tr>
+                {% for user in users %}
+                    {% set urlDelete = path('vente_suppUser', {'id' : user.id}) %}
+                    <tr>
+                        <td>{{ user.roles[0] }}</td>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.firstname }}</td>
+                        <td>{{ user.login }}</td>
+                        <td>{{ user.password }}</td>
+                        <td>{{ user.Birthday|date('d/m/Y') }}</td>
+                        {% if user.roles[0] != "ROLE_ADMIN" and user.roles[0] != "ROLE_SUPER_ADMIN" %}
+                            <td><a href="{{ urlDelete }}" class="btn">delete</a></td>
+                        {% endif %}
+                    </tr>
+
+                {% endfor %}
+            </table>
+        {% endif %}
+        {% for type, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ type }}">{{ message }}</div>
             {% endfor %}
-        </table>
-    {% endif %}
-    {% for type, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="alert alert-{{ type }}">{{ message }}</div>
         {% endfor %}
-    {% endfor %}
+    </div>
+
 {% endblock %}

@@ -9,7 +9,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class ProduitType extends AbstractType
 {
@@ -19,7 +21,7 @@ class ProduitType extends AbstractType
             ->add('libelle',
                 TextType::class,
                 [
-                    'label'=>'nom du produit',
+                    'label'=>'Product Name',
                     'attr'=>['placeholder'=> 'libelle'],
                     'constraints' => [
                         new NotBlank(),
@@ -29,7 +31,7 @@ class ProduitType extends AbstractType
             ->add('prix',
                 NumberType::class,
                 [
-                    'label'=>"le prix de l'article",
+                    'label'=>"the price of the item",
                     'attr'=>['placeholder'=>"prix"],
                     'constraints' => [
                         new NotBlank(),
@@ -39,11 +41,21 @@ class ProduitType extends AbstractType
             ->add('enstock',
                 IntegerType::class,
                 [
-                    'label'=>"nombre de stock",
+                    'label'=>"stock number",
                     'attr'=>['placeholder'=>"stock"],
                     'constraints' => [
                         new NotBlank(),
+                        new Callback([
+                            'callback' => function ($enstock, ExecutionContextInterface $context) {
+                                if ($enstock < 0) {
+                                    $context->buildViolation('Le nombre de stock doit être supérieur à 0')
+                                        ->atPath('enstock')
+                                        ->addViolation();
+                                }
+                            },
+                        ]),
                     ],
+
                 ]);
     }
 

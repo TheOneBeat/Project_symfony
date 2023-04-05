@@ -8,6 +8,8 @@ body{
     background: linear-gradient(to bottom right, #F4EDED, #A88F56) no-repeat;
     width:100vw;
     height:100vh;
+    overflow: hidden;
+    position: relative;
 }
 
 footer{

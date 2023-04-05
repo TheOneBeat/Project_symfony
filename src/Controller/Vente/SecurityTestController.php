@@ -95,12 +95,14 @@ class SecurityTestController extends AbstractController
         $userRepository = $em->getRepository(User::class);
         $user = $userRepository->find($id);
 
+        $name = $user->getName();
+
         if (is_null($user))
-            throw new NotFoundHttpException('erreur suppression produit ' . $id);
+            throw new NotFoundHttpException("product deletion error" . $name);
 
         $em->remove($user);
         $em->flush();
-        $this->addFlash('info', "suppression de l'utilisateur " . $id . ' réussie');
+        $this->addFlash('info', "user deleted " . $name . "successfully");
 
         return $this->redirectToRoute('vente_listUser');
     }
