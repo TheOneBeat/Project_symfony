@@ -49,6 +49,7 @@ form p,.contenu p
     font-weight: bold;
     text-shadow: 2px 2px 1px rgba(0,0,0,0.2);
     letter-spacing: 2px;
+    transition: all 0.3s ease-in-out;
 }
 
 .contenu p:hover

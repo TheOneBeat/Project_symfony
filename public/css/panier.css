@@ -29,8 +29,9 @@ th{
 
 td{
     padding:20px;
-    font-size: 18px;
-    font-family:"Bookman Old Style",serif;
+    text-align: center;
+    font-size: 20px;
+    font-family:"Bookman Old Style",serif ;
 }
 
 tr,td{
@@ -61,6 +62,9 @@ tr,td{
     transition: all 0.3s ease-in-out;
     letter-spacing: 2px;
     position: relative;
+    left:45%;
+    top:0;
+    transform: translate(-50%,0);
     z-index: 10;
     overflow: hidden;
 }

@@ -5,7 +5,14 @@
     {% include '/layouts/menu.html.twig' %}
 {% endblock %}
 
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {{ parent() }}
+    <link rel="stylesheet" media="screen" type="text/css" href="{{ asset('css/panier.css') }}">
+{% endblock %}
+
 {% block body %}
+    <div class="container">
         <table>
             {% set total = 0 %}
             {% set totalQuantite = 0 %}
@@ -23,7 +30,7 @@
                         <td>{{ produit.prix }} €</td>
                         <td>{{ panier.getQuantity(produit.id) }}</td>
                         <td>{{ panier.getQuantity(produit.id) * produit.prix  }} €</td>
-                        <td><a href="{{ path('produit_listProduit') }}">Modifier</a></td>
+                        <td><a href="{{ path('produit_listProduit') }}" class="btn">Modifier</a></td>
                     </tr>
                     {% set total = total + (produit.prix*panier.getQuantity(produit.id))  %}
                     {% set totalQuantite = totalQuantite + panier.getQuantity(produit.id)  %}
@@ -40,10 +47,10 @@
                 <td></td>
                 <td></td>
                 <td>
-                    <a href="{{ path('produit_acheterPanier') }}">Buy</a>
+                    <a href="{{ path('produit_acheterPanier') }}" class="btn">Buy</a>
                 </td>
                 <td>
-                    <a href="{{ path('produit_viderPanier') }}">Clean</a>
+                    <a href="{{ path('produit_viderPanier') }}" class="btn">Clean</a>
                 </td>
             </tr>
         </table>
@@ -52,4 +59,5 @@
             <div class="alert alert-{{ type }}">{{ message }}</div>
         {% endfor %}
     {% endfor %}
+    </div>
 {% endblock %}
