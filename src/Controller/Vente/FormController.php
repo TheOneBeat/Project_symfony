@@ -4,6 +4,7 @@ namespace App\Controller\Vente;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Service\PasswordChecker;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,13 +17,21 @@ class FormController extends AbstractController
 {
     #[Route('/createUser', name: '_createUser')]
     public function createUser (EntityManagerInterface $em,Request $request,
-                                UserPasswordHasherInterface $passwordHasher): Response
+                                UserPasswordHasherInterface $passwordHasher,PasswordChecker $ps): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
+        $pass = "";
+        if (!is_null($form->get('password')->getData()))
+        {
+            $pass = $form->get('password')->getData();
+        }
 
-        if ($form->isSubmitted() && $form->isValid())
+        $checkpassword = $ps->isPasswordRobust($pass);
+
+
+        if ($form->isSubmitted() && $form->isValid() && $checkpassword['isValid'])
         {
             $passwordUser1 = $passwordHasher->hashPassword($user,
                 $form->get('password')->getData());
@@ -38,6 +47,9 @@ class FormController extends AbstractController
             return $this->redirectToRoute('accueil');
         }
 
+        $this->addFlash('failure', $checkpassword["errorMessage"]);
+
+
         return $this->render('user/user.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
@@ -46,13 +58,21 @@ class FormController extends AbstractController
 
     #[Route('/createAdmin', name: '_createAdmin')]
     public function createAdmin (EntityManagerInterface $em,Request $request,
-                                UserPasswordHasherInterface $passwordHasher): Response
+                                UserPasswordHasherInterface $passwordHasher,PasswordChecker $ps): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
+        $pass = "";
+        if (!is_null($form->get('password')->getData()))
+        {
+            $pass = $form->get('password')->getData();
+        }
+
+        $checkpassword = $ps->isPasswordRobust($pass);
+
+        if ($form->isSubmitted() && $form->isValid() && $checkpassword['isValid'])
         {
             $passwordUser1 = $passwordHasher->hashPassword($user,
                 $form->get('password')->getData());
@@ -68,6 +88,8 @@ class FormController extends AbstractController
             return $this->redirectToRoute('accueil');
         }
 
+        $this->addFlash('failure', $checkpassword["errorMessage"]);
+
         return $this->render('user/user.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
@@ -77,14 +99,23 @@ class FormController extends AbstractController
 
     #[Route('/editProfil', name: '_editProfil')]
     public function editProfil(EntityManagerInterface $em,Request $request,
-                               UserPasswordHasherInterface $passwordHasher): Response
+                               UserPasswordHasherInterface $passwordHasher, PasswordChecker $ps): Response
     {
         $user = $this->getUser();
 
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        $pass = "";
+        if (!is_null($form->get('password')->getData()))
+        {
+            $pass = $form->get('password')->getData();
+        }
+
+        $checkpassword = $ps->isPasswordRobust($pass);
+
+        if ($form->isSubmitted() && $form->isValid() && $checkpassword['isValid'])
+        {
 
             $passwordUser = $passwordHasher->hashPassword($user,
                 $form->get('password')->getData());
@@ -95,8 +126,12 @@ class FormController extends AbstractController
 
             $this->addFlash('success', "Profile updated successfully !");
 
+
+
             return $this->redirectToRoute('accueil');
         }
+
+        $this->addFlash('failure', $checkpassword["errorMessage"]);
 
         return $this->render('user/user.html.twig', [
             'form' => $form->createView(),

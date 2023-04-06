@@ -83,7 +83,7 @@ class SecurityTestController extends AbstractController
 
         $em->flush();
 
-        return $this->render("<body><h1>Very Good</h1></body>");
+        return $this->render("/layouts/Accueil.html.twig");
     }
 
     #[Route('/suppUser/{id}',
@@ -98,11 +98,11 @@ class SecurityTestController extends AbstractController
         $name = $user->getName();
 
         if (is_null($user))
-            throw new NotFoundHttpException("product deletion error" . $name);
+            throw new NotFoundHttpException("product deletion error " . $name);
 
         $em->remove($user);
         $em->flush();
-        $this->addFlash('info', "user deleted " . $name . "successfully");
+        $this->addFlash('info', "user deleted " . $name . " successfully");
 
         return $this->redirectToRoute('vente_listUser');
     }
