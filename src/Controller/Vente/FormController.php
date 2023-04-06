@@ -12,9 +12,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+
 #[Route('form', name: 'form')]
 class FormController extends AbstractController
 {
+
+    #[\Sensio\Bundle\FrameworkExtraBundle\Configuration\Security
+    ("!is_granted('ROLE_SUPER_ADMIN') and !is_granted('ROLE_ADMIN') and !is_granted('ROLE_CLIENT')"
+    )]
     #[Route('/createUser', name: '_createUser')]
     public function createUser (EntityManagerInterface $em,Request $request,
                                 UserPasswordHasherInterface $passwordHasher,PasswordChecker $ps): Response
@@ -55,6 +61,12 @@ class FormController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
+
+    #[\Sensio\Bundle\FrameworkExtraBundle\Configuration\Security
+    ("is_granted('ROLE_SUPER_ADMIN')"
+    )]
 
     #[Route('/createAdmin', name: '_createAdmin')]
     public function createAdmin (EntityManagerInterface $em,Request $request,
@@ -97,6 +109,9 @@ class FormController extends AbstractController
     }
 
 
+    #[\Sensio\Bundle\FrameworkExtraBundle\Configuration\Security
+    ("is_granted('ROLE_ADMIN') or is_granted('ROLE_CLIENT')"
+    )]
     #[Route('/editProfil', name: '_editProfil')]
     public function editProfil(EntityManagerInterface $em,Request $request,
                                UserPasswordHasherInterface $passwordHasher, PasswordChecker $ps): Response

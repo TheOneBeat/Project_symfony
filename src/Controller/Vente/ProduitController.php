@@ -14,6 +14,10 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('produit', name: 'produit')]
 class ProduitController extends AbstractController
 {
+
+    #[\Sensio\Bundle\FrameworkExtraBundle\Configuration\Security
+    ("is_granted('ROLE_ADMIN')"
+    )]
     #[Route('/add', name: '_add')]
     public function addAction(EntityManagerInterface $em, Request $request): Response
     {
@@ -36,6 +40,10 @@ class ProduitController extends AbstractController
         ]);
     }
 
+    #[\Sensio\Bundle\FrameworkExtraBundle\Configuration\Security
+    ("is_granted('ROLE_ADMIN') or is_granted('ROLE_CLIENT')"
+    )]
+
     #[Route('/listProduit', name: '_listProduit')]
     public function listUsersAction(EntityManagerInterface $em): Response
     {
@@ -49,6 +57,10 @@ class ProduitController extends AbstractController
         return $this->render('vente/ProduitList.html.twig', $args);
     }
 
+
+    #[\Sensio\Bundle\FrameworkExtraBundle\Configuration\Security
+    ("is_granted('ROLE_ADMIN') or is_granted('ROLE_CLIENT')"
+    )]
     #[Route('/listPanier', name: '_listPanier')]
     public function listPanier(EntityManagerInterface $em): Response
     {
@@ -62,6 +74,10 @@ class ProduitController extends AbstractController
         return $this->render('vente/panier.html.twig', $args);
     }
 
+
+    #[\Sensio\Bundle\FrameworkExtraBundle\Configuration\Security
+    ("is_granted('ROLE_ADMIN') or is_granted('ROLE_CLIENT')"
+    )]
 
     #[Route('/addProduitPanier/{id}', name: '_addProduitPanier')]
     public function addProduitToPanierAction(Request $request, EntityManagerInterface $em,
@@ -97,6 +113,9 @@ class ProduitController extends AbstractController
         return $this->redirectToRoute('produit_listProduit');
     }
 
+    #[\Sensio\Bundle\FrameworkExtraBundle\Configuration\Security
+    ("is_granted('ROLE_ADMIN') or is_granted('ROLE_CLIENT')"
+    )]
    #[Route('/viderPanier', name: '_viderPanier')]
     public function ViderPanierAction(EntityManagerInterface $em): Response
     {
@@ -124,6 +143,10 @@ class ProduitController extends AbstractController
         $em->flush();
         return $this->redirectToRoute('produit_listPanier');
     }
+
+    #[\Sensio\Bundle\FrameworkExtraBundle\Configuration\Security
+    ("is_granted('ROLE_ADMIN') or is_granted('ROLE_CLIENT')"
+    )]
 
     #[Route('/acheterPanier', name: '_acheterPanier')]
     public function AcheterPanierAction(EntityManagerInterface $em): Response

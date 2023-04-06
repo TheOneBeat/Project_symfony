@@ -11,7 +11,7 @@ body
 }
 
 table{
-    width:50%;/* 70% */
+    width: 60%;
     height: auto;
     border-collapse: collapse;
     box-shadow: 0 0 10px rgba(0,0,0,0.15);
@@ -22,14 +22,13 @@ table{
 
 th{
     background-color: #FABC2B;
-    padding:20px;
+    padding:15px;
     font-size: 20px;
     font-family: Rockwell,serif;
 }
 
 td{
-    padding:20px;
-    font-size: 18px;
+    padding:15px;
     font-family:"Bookman Old Style",serif;
 }
 

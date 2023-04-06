@@ -86,6 +86,10 @@ class SecurityTestController extends AbstractController
         return $this->render("/layouts/Accueil.html.twig");
     }
 
+
+    #[\Sensio\Bundle\FrameworkExtraBundle\Configuration\Security
+    ("is_granted('ROLE_ADMIN')"
+    )]
     #[Route('/suppUser/{id}',
         name: '_suppUser',
         requirements: ['id' => '[1-9]\d*'],
@@ -107,6 +111,9 @@ class SecurityTestController extends AbstractController
         return $this->redirectToRoute('vente_listUser');
     }
 
+    #[\Sensio\Bundle\FrameworkExtraBundle\Configuration\Security
+    ("is_granted('ROLE_ADMIN')"
+    )]
     #[Route('/listUser', name: '_listUser')]
     public function listUsersAction(EntityManagerInterface $em): Response
     {
