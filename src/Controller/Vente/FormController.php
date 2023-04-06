@@ -11,20 +11,23 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 
 #[Route('form', name: 'form')]
 class FormController extends AbstractController
 {
 
-    #[\Sensio\Bundle\FrameworkExtraBundle\Configuration\Security
-    ("!is_granted('ROLE_SUPER_ADMIN') and !is_granted('ROLE_ADMIN') and !is_granted('ROLE_CLIENT')"
-    )]
     #[Route('/createUser', name: '_createUser')]
     public function createUser (EntityManagerInterface $em,Request $request,
                                 UserPasswordHasherInterface $passwordHasher,PasswordChecker $ps): Response
     {
+
+        // Vérifier si l'utilisateur a le rôle "ROLE_USER"
+        if ($this->isGranted('ROLE_CLIENT') or $this->isGranted('ROLE_ADMIN') or $this->isGranted('ROLE_SUPER_ADMIN'))
+        {
+            throw new AccessDeniedException('Vous n\'êtes pas autorisé à accéder à cette page.');
+        }
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -61,7 +64,6 @@ class FormController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
 
 
     #[\Sensio\Bundle\FrameworkExtraBundle\Configuration\Security

@@ -106,7 +106,7 @@ class ProduitController extends AbstractController
             throw $this->createNotFoundException("the product doesn't exist\n");
         }
 
-        $produit->setEnstock($oldValue);
+        $produit->setEnstock($oldValue);//je remet à jour la quantité de produit restant pour ce type de produit...
 
         $panier->addProduit($produit, $theQuantity);
         $em->flush();
@@ -130,16 +130,22 @@ class ProduitController extends AbstractController
             $Produits = $panier->getProduits()->toArray(null, true);
             foreach ($Produits as $Produit)
             {
-                if (array_key_exists($Produit->getId(),$panier->getTableProduitQuantites()))
+
+                //si j'ai ce produit dans la liste des produit du panier...
+                //$panier->getTableProduitQuantites() retourne la collection de l'entité panier qui contient chaque produit ajouté avec sa quantité...
+
+                if (array_key_exists($Produit->getId(),$panier->getTableProduitQuantites()))//si j'ai ce produit dans la liste des produit du panier...
                     $Produit->setEnstock($Produit->getEnstock()+$panier->getQuantity($Produit->getId()));
+                    //Ici je vide le panier en remettant (ajoutant) dans le produit de base, le stock qui a été pris ...
             }
             //$em->flush();
         }
         $produits = $panier->getProduits()->toArray(null, true);//tranforme la collection en array...
         foreach($produits as $produit)
         {
-            $panier->removeProduit($produit);
+            $panier->removeProduit($produit);//Ici je vide le panier...
         }
+        //Mais évidemment je ne détruis pas le panier...
         $em->flush();
         return $this->redirectToRoute('produit_listPanier');
     }
@@ -151,9 +157,12 @@ class ProduitController extends AbstractController
     #[Route('/acheterPanier', name: '_acheterPanier')]
     public function AcheterPanierAction(EntityManagerInterface $em): Response
     {
+        //L'idée c'est que pour acheter, on vide juste le panier sans remettre le stock pris dans le enstock du prosuit
+        // en question
         $user=  $this->getUser();//accès à l'utlisateur
         $panier = $em->getRepository(Panier::class)->findOneBy(['user' => $user]);//accès au panier de l'utlisateur
-        if (!$panier) {
+        if (!$panier)
+        {
             return $this->redirectToRoute('produit_listPanier');
         }
         else
@@ -168,8 +177,4 @@ class ProduitController extends AbstractController
 
         return $this->redirectToRoute('produit_listPanier');
     }
-
-
-
-
 }
