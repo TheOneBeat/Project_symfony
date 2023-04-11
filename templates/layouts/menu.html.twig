@@ -1,12 +1,7 @@
-{% extends "base.html.twig" %}
-
 {% block stylesheets %}
-    {{ encore_entry_link_tags('app') }}
-    {{ parent() }}
     <link rel="stylesheet" media="screen" type="text/css" href="{{ asset('css/menu.css') }}">
 {% endblock %}
 
-{% block header %}
     <nav>
         <h2>
             {% set name = "unknown" %}
@@ -61,5 +56,3 @@
             <div class="alert alert-{{ type }}">{{ message }}</div>
         {% endfor %}
     {% endfor %}
-
-{% endblock %}

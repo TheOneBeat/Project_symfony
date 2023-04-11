@@ -47,7 +47,7 @@ class ProduitType extends AbstractType
                         new NotBlank(),
                         new Callback([
                             'callback' => function ($enstock, ExecutionContextInterface $context) {
-                                if ($enstock < 0) {
+                                if ($enstock <= 0) {
                                     $context->buildViolation('Le nombre de stock doit être supérieur à 0')
                                         ->atPath('enstock')
                                         ->addViolation();

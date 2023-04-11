@@ -52,7 +52,7 @@ class SecurityTestController extends AbstractController
             ->setName("Subrenat")
             ->setRoles(['ROLE_ADMIN'])
             ->setFirstName("Gilou")
-            ->setBirthday(new \DateTime("1983-06-15"));
+            ->setBirthday(new \DateTime("1980-08-17"));
         $passwordUser3 = $passwordHasher->hashPassword($user3,'sellig');
         $user3->setPassword($passwordUser3);
         $em->persist($user3);
@@ -65,7 +65,7 @@ class SecurityTestController extends AbstractController
             ->setName("super")
             ->setRoles(['ROLE_SUPER_ADMIN'])
             ->setFirstName("franky")
-            ->setBirthday(new \DateTime("1983-06-15"));
+            ->setBirthday(new \DateTime("2000-10-5"));
         $passwordUser4 = $passwordHasher->hashPassword($user4,'nimdas');
         $user4->setPassword($passwordUser4);
         $em->persist($user4);

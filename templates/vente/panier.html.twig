@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends '/layouts/base.html.twig' %}
 
 {% block header %}
     {{ parent()}}
@@ -13,47 +13,48 @@
 
 {% block body %}
     <div class="container">
-        <table>
-            {% set total = 0 %}
-            {% set totalQuantite = 0 %}
-            <tr>
-                <th>Wording</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Action</th>
-                <th>Total Price</th>
-            </tr>
-            {% for produit in panier.getProduits() %}
-                {% if produit.id in (panier.getTableProduitQuantites()|keys) %}
-                    <tr>
-                        <td>{{ produit.libelle }}</td>
-                        <td>{{ produit.prix }} €</td>
-                        <td>{{ panier.getQuantity(produit.id) }}</td>
-                        <td>{{ panier.getQuantity(produit.id) * produit.prix  }} €</td>
-                        <td><a href="{{ path('produit_listProduit') }}" class="btn">Modifier</a></td>
-                    </tr>
-                    {% set total = total + (produit.prix*panier.getQuantity(produit.id))  %}
-                    {% set totalQuantite = totalQuantite + panier.getQuantity(produit.id)  %}
-                {% endif %}
-            {% endfor %}
-            <tr>
-                <td>Total</td>
-                <td></td>
-                <td>{{ totalQuantite }}</td>
-                <td>{{ total }} €</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                    <a href="{{ path('produit_acheterPanier') }}" class="btn">Buy</a>
-                </td>
-                <td>
-                    <a href="{{ path('produit_viderPanier') }}" class="btn">Clean</a>
-                </td>
-            </tr>
-        </table>
+            <table>
+                {% set total = 0 %}
+                {% set totalQuantite = 0 %}
+                <tr>
+                    <th>Wording</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                    <th>Action</th>
+                </tr>
+                {% for produit in panier.getProduits() %}
+                    {% if produit.id in (panier.getTableProduitQuantites()|keys) %}
+                        <tr>
+                            <td>{{ produit.libelle }}</td>
+                            <td>{{ produit.prix }} €</td>
+                            <td>{{ panier.getQuantity(produit.id) }}</td>
+                            <td>{{ panier.getQuantity(produit.id) * produit.prix  }} €</td>
+                            <td><a href="{{ path('produit_listProduit') }}" class="btn">Modify</a></td>
+                        </tr>
+                        {% set total = total + (produit.prix*panier.getQuantity(produit.id))  %}
+                        {% set totalQuantite = totalQuantite + panier.getQuantity(produit.id)  %}
+                    {% endif %}
+                {% endfor %}
+                <tr>
+                    <td>Total</td>
+                    <td></td>
+                    <td>{{ totalQuantite }}</td>
+                    <td>{{ total }} €</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <a href="{{ path('produit_acheterPanier') }}" class="btn">Buy</a>
+                    </td>
+                    <td>
+                        <a href="{{ path('produit_viderPanier') }}" class="btn">Clean</a>
+                    </td>
+                </tr>
+            </table>
+
     {% for type, messages in app.flashes %}
         {% for message in messages %}
             <div class="alert alert-{{ type }}">{{ message }}</div>

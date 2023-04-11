@@ -1,4 +1,4 @@
-{% extends "base.html.twig" %}
+{% extends '/layouts/base.html.twig' %}
 
 {% block header %}
     {% include '/layouts/menu.html.twig' %}
@@ -27,7 +27,7 @@
 
         <div class="left_bord">
             <div class="arrow"></div>
-            <img src="{{ asset('media/shabiller.png') }}">
+            <img src="{{ asset('media/shabiller.png')}}" alt="logo de l'image de l'accueil">
         </div>
     </section>
 {% endblock %}

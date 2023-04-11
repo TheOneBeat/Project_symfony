@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends '/layouts/base.html.twig' %}
 
 {% block header %}
     {{ parent()}}
@@ -47,7 +47,7 @@
                                     </select>
                                 </label>
                             </p>
-                    <button type="submit">Command</button>
+                    <button type="submit" class="btn">Command</button>
             </form>
         {% endfor %}
 

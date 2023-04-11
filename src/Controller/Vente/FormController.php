@@ -123,6 +123,7 @@ class FormController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
+
         $pass = "";
         if (!is_null($form->get('password')->getData()))
         {

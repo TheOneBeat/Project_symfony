@@ -1,16 +1,13 @@
-body
-{
-    position: relative;
-    overflow: hidden;
-}
 
 .container
 {
     width: 100%;
-    height:auto;
+    height:100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 15px;
+    overflow-y: auto;
 }
 
 h1{
@@ -30,6 +27,19 @@ h1{
     align-items: center;
 }
 
+form
+{
+    padding: 10px;
+    width:20%;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background-color: white;
+    border-radius: 10px;
+}
+
 form .inner div
 {
     position: relative;
@@ -47,11 +57,6 @@ form .inner div label
     font-size: 22px;
     z-index: 4;
     transform: translate(0,-30px);
-}
-
-.active
-{
-
 }
 
 form .inner div input
@@ -153,6 +158,12 @@ select {
     transition: all 0.3s ease-in-out;
 }
 
+select:hover
+{
+    border-color: crimson;
+    font-size: 17px;
+}
+
 /* Ajout d'une flèche pour indiquer que c'est une liste déroulante */
 .user_Birth_day::after {
     content: "";
@@ -168,29 +179,3 @@ select {
 
 }
 
-/* Style de la liste déroulante lorsqu'elle est active */
-
-select:hover
-{
-    font-size: 18px;
-    border-color: crimson;
-}
-
-
-select:focus {
-    outline: none;
-    border-color: #0077cc;
-}
-
-form
-{
-    padding: 10px;
-    width:20%;
-    height: 60vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    background-color: white;
-    border-radius: 10px;
-}
