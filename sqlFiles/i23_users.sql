@@ -1,0 +1,5 @@
+INSERT INTO i23_users (id, id_panier, login, roles, password, name, first_name, birth_day) VALUES (25, null, 'simon', '["ROLE_CLIENT"]', '$2y$13$l1nz9.2hKnem.18DqvEpeuu.IdPSya0ma9iGJ53c5AwhZOwRsseoi', 'ingle', 'Arthur', '1980-02-23');
+INSERT INTO i23_users (id, id_panier, login, roles, password, name, first_name, birth_day) VALUES (26, null, 'rita', '["ROLE_CLIENT"]', '$2y$13$QKt9PbvoCnO66gMRgu0PdOTUZPzovFaM1lc.iV7B2UQzsts/Y1zve', 'zouri', 'Rita', '1983-06-15');
+INSERT INTO i23_users (id, id_panier, login, roles, password, name, first_name, birth_day) VALUES (27, null, 'gilles', '["ROLE_ADMIN"]', '$2y$13$B1egGCWQ7J6dV3zrruLoluG2BZdsu2wVyZ6osyNYafXCmgbwgbmj6', 'Subrenat', 'Gilou', '1980-08-17');
+INSERT INTO i23_users (id, id_panier, login, roles, password, name, first_name, birth_day) VALUES (28, null, 'sadmin', '["ROLE_SUPER_ADMIN"]', '$2y$13$VrAKsQyvDH/Fbe0Mb0Rj1OZzUOHOQIM2TWtK4mIHnGvCT1bJvcHs.', 'super', 'franky', '2000-10-05');
+INSERT INTO i23_users (id, id_panier, login, roles, password, name, first_name, birth_day) VALUES (29, null, 'dark', '["ROLE_CLIENT"]', '$2y$13$tSjX34MJ8J.A1YMpHaCIHejK4yrGAcvxF6OJkDiDueMD8cXeqke/S', 'luke', 'cage', '1983-06-15');

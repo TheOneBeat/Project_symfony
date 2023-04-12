@@ -58,6 +58,12 @@ class ProduitController extends AbstractController
     }
 
 
+    public function listProduitAction(): Response
+    {
+        return $this->redirectToRoute('produit_listProduit');
+    }
+
+
     #[\Sensio\Bundle\FrameworkExtraBundle\Configuration\Security
     ("is_granted('ROLE_ADMIN') or is_granted('ROLE_CLIENT')"
     )]

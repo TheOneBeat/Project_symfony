@@ -26,7 +26,7 @@
 
                 {% if is_granted("ROLE_CLIENT") %}
                     <li><a href="{{ path('produit_listProduit') }}">Store</a></li>
-                    <li><a href="{{ path('accueil') }}">Welcome</a></li>
+                    <li><a href="{{ path('accueilH') }}">Welcome</a></li>
                     <li><a  href="{{ path('produit_listPanier') }}">Basket</a></li>
                 {% endif %}
 
@@ -37,7 +37,7 @@
 
                 {% if is_granted("ROLE_SUPER_ADMIN") %}
                     <li><a href="{{ path('form_createAdmin') }}">Create Admin</a></li>
-                    <li><a href="{{ path('accueil') }}">Welcome</a></li>
+                    <li><a href="{{ path('accueilH') }}">Welcome</a></li>
                 {% endif %}
 
             {% endif %}
